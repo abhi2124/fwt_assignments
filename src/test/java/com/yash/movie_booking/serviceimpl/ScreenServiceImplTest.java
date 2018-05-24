@@ -9,6 +9,7 @@ import java.util.Date;
 import org.junit.Test;
 import com.yash.movie_booking.dao.ScreenDAO;
 import com.yash.movie_booking.exception.NullObjectProvidedException;
+import com.yash.movie_booking.exception.SizeExceededExeption;
 import com.yash.movie_booking.exception.AlreadyExistsException;
 import com.yash.movie_booking.pojo.Movie;
 import com.yash.movie_booking.pojo.Screen;
@@ -24,34 +25,53 @@ public class ScreenServiceImplTest {
 		Show show = new Show(1, new Date(), 3);
 		Movie movie = new Movie(1, show, 3, "Salman Khan", "Dharma Production");
 		Seat seat = new Seat("G-12", "Gold", 400);
-		Screen screen = new Screen(1, "AUDI-1", movie, seat, show);
+		Screen screen = new Screen(1, "AUDI-2", movie, seat, show);
 		ScreenService screenService = new ScreenServiceImpl(screenDAO);
 		when(screenDAO.insert(screen)).thenReturn(1);
 		int rowsAffected = screenService.add(screen);
 		assertEquals(1, rowsAffected);
 	}
-
+	
 	@Test(expected = NullObjectProvidedException.class)
-	public void checkIfScreenObjectIsNull_ScreenObjectGiven_ThrowExceptionIfScreenObjectIsNull()
-			throws NullObjectProvidedException {
+	public void addScreen_ScreenObjectGiven_ThrowExceptionIfScreenObjectIsNull() {
 		ScreenDAO screenDAO = mock(ScreenDAO.class);
+		Show show = new Show(1, new Date(), 3);
+		Movie movie = new Movie(1, show, 3, "Salman Khan", "Dharma Production");
+		Seat seat = new Seat("G-12", "Gold", 400);
+		Screen screen = new Screen(1, "AUDI-2", movie, seat, show);
 		ScreenService screenService = new ScreenServiceImpl(screenDAO);
-		Screen screen = null;
-		when(screenDAO.checkIfScreenObjectIsNull(screen)).thenThrow(NullObjectProvidedException.class);
-		screenService.checkIfScreenObjectIsNull(screen);
+		when(screenDAO.insert(screen)).thenThrow(NullObjectProvidedException.class);
+		screenService.add(screen);
+		
 	}
-
+	
 	@Test(expected = AlreadyExistsException.class)
-	public void getScreenName_ScreenObjectGiven_ThrowExceptionIfScreenAlreadyExists()
-			throws AlreadyExistsException {
+	public void addScreen_ScreenObjectGiven_ThrowExceptionIfScreenObjectIsAlreadyExists() {
+		ScreenDAO screenDAO = mock(ScreenDAO.class);
+		Show show = new Show(1, new Date(), 3);
+		Movie movie = new Movie(1, show, 3, "Salman Khan", "Dharma Production");
+		Seat seat = new Seat("G-12", "Gold", 400);
+		Screen screen = new Screen(1, "AUDI-2", movie, seat, show);
+		ScreenService screenService = new ScreenServiceImpl(screenDAO);
+		when(screenDAO.getByName(screen.getScreenName())).thenThrow(AlreadyExistsException.class);
+		screenService.add(screen);
+		
+	}
+
+	@Test(expected = SizeExceededExeption.class)
+	public void addScreen_ScreenObjectGiven_ThrowExceptionIfScreenSizeIsMoreThanThree() {
 		ScreenDAO screenDAO = mock(ScreenDAO.class);
 		ScreenService screenService = new ScreenServiceImpl(screenDAO);
-		Screen screen = new Screen();
-		screen.setScreenName("AUDI-1");
-		String screenName = screen.getScreenName();
-		when(screenDAO.getName(screenName)).thenThrow(AlreadyExistsException.class);
-		screenService.getScreenName(screenName);
-
+		Show show = new Show(1, new Date(), 3);
+		Movie movie = new Movie(1, show, 3, "Salman Khan", "Dharma Production");
+		Seat seat = new Seat("G-12", "Gold", 400);
+		Screen screen = new Screen(3, "AUDI-2", movie, seat, show);
+		when(screenDAO.getId(screen.getScreenId())).thenThrow(SizeExceededExeption.class);
+		screenService.add(screen);
+		
 	}
+	
+	
+
 
 }

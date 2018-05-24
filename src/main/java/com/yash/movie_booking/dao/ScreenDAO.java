@@ -8,6 +8,9 @@ public interface ScreenDAO {
 
 	int checkIfScreenObjectIsNull(Screen screen);
 
-	String getName(String screenName);
+	boolean getByName(String screenName);
+
+
+	boolean getId(Integer screenId);
 
 }
