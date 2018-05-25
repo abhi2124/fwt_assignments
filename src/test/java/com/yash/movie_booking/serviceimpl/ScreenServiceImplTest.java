@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import com.yash.movie_booking.dao.ScreenDAO;
@@ -23,7 +25,10 @@ public class ScreenServiceImplTest {
 	public void addScreen_ScreenObjectGiven_ShouldReturnOne() {
 		ScreenDAO screenDAO = mock(ScreenDAO.class);
 		Show show = new Show(1, new Date(), 3);
-		Movie movie = new Movie(1, show, 3, "Salman Khan", "Dharma Production");
+		List<String> listOfActors = new ArrayList<String>();
+		listOfActors.add("Salman Khan");
+		listOfActors.add("Kareena Kapoor");
+		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		Seat seat = new Seat("G-12", "Gold", 400);
 		Screen screen = new Screen(1, "AUDI-2", movie, seat, show);
 		ScreenService screenService = new ScreenServiceImpl(screenDAO);
@@ -36,7 +41,10 @@ public class ScreenServiceImplTest {
 	public void addScreen_ScreenObjectGiven_ThrowExceptionIfScreenObjectIsNull() {
 		ScreenDAO screenDAO = mock(ScreenDAO.class);
 		Show show = new Show(1, new Date(), 3);
-		Movie movie = new Movie(1, show, 3, "Salman Khan", "Dharma Production");
+		List<String> listOfActors = new ArrayList<String>();
+		listOfActors.add("Salman Khan");
+		listOfActors.add("Kareena Kapoor");
+		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		Seat seat = new Seat("G-12", "Gold", 400);
 		Screen screen = new Screen(1, "AUDI-2", movie, seat, show);
 		ScreenService screenService = new ScreenServiceImpl(screenDAO);
@@ -49,7 +57,10 @@ public class ScreenServiceImplTest {
 	public void addScreen_ScreenObjectGiven_ThrowExceptionIfScreenObjectIsAlreadyExists() {
 		ScreenDAO screenDAO = mock(ScreenDAO.class);
 		Show show = new Show(1, new Date(), 3);
-		Movie movie = new Movie(1, show, 3, "Salman Khan", "Dharma Production");
+		List<String> listOfActors = new ArrayList<String>();
+		listOfActors.add("Salman Khan");
+		listOfActors.add("Kareena Kapoor");
+		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		Seat seat = new Seat("G-12", "Gold", 400);
 		Screen screen = new Screen(1, "AUDI-2", movie, seat, show);
 		ScreenService screenService = new ScreenServiceImpl(screenDAO);
@@ -63,7 +74,10 @@ public class ScreenServiceImplTest {
 		ScreenDAO screenDAO = mock(ScreenDAO.class);
 		ScreenService screenService = new ScreenServiceImpl(screenDAO);
 		Show show = new Show(1, new Date(), 3);
-		Movie movie = new Movie(1, show, 3, "Salman Khan", "Dharma Production");
+		List<String> listOfActors = new ArrayList<String>();
+		listOfActors.add("Salman Khan");
+		listOfActors.add("Kareena Kapoor");
+		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		Seat seat = new Seat("G-12", "Gold", 400);
 		Screen screen = new Screen(3, "AUDI-2", movie, seat, show);
 		when(screenDAO.getId(screen.getScreenId())).thenThrow(SizeExceededExeption.class);

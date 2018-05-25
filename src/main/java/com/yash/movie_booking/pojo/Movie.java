@@ -1,10 +1,13 @@
 package com.yash.movie_booking.pojo;
 
+import java.util.List;
+
 public class Movie {
 	private Integer movieId;
+	private String movieName;
 	private Show show;
 	private Integer duration;
-	private String actors;
+	private List<String> actors;
 	private String production;
 
 	public Integer getMovieId() {
@@ -15,6 +18,14 @@ public class Movie {
 		this.movieId = movieId;
 	}
 
+	public String getMovieName() {
+		return movieName;
+	}
+
+	public void setMovieName(String movieName) {
+		this.movieName = movieName;
+	}
+
 	public Show getShow() {
 		return show;
 	}
@@ -22,8 +33,6 @@ public class Movie {
 	public void setShow(Show show) {
 		this.show = show;
 	}
-
-
 
 	public Integer getDuration() {
 		return duration;
@@ -33,11 +42,11 @@ public class Movie {
 		this.duration = duration;
 	}
 
-	public String getActors() {
+	public List<String> getActors() {
 		return actors;
 	}
 
-	public void setActors(String actors) {
+	public void setActors(List<String> actors) {
 		this.actors = actors;
 	}
 
@@ -49,15 +58,15 @@ public class Movie {
 		this.production = production;
 	}
 
-	public Movie(Integer movieId, Show show, Integer duration, String actors, String production) {
+	public Movie(Integer movieId, String movieName, Show show, Integer duration, List<String> actors,
+			String production) {
 		super();
 		this.movieId = movieId;
+		this.movieName = movieName;
 		this.show = show;
 		this.duration = duration;
 		this.actors = actors;
 		this.production = production;
 	}
-	
-	
 
 }

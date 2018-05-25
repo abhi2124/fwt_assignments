@@ -4,9 +4,8 @@ import java.util.Date;
 
 public class Show {
 	private Integer showId;
-	private Date showDateTime;
+	private Date date;
 	private Integer duration;
-	
 
 	public Integer getShowId() {
 		return showId;
@@ -16,12 +15,13 @@ public class Show {
 		this.showId = showId;
 	}
 
-	public Date getShowDateTime() {
-		return showDateTime;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setShowDateTime(Date showDateTime) {
-		this.showDateTime = showDateTime;
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Integer getDuration() {
@@ -32,23 +32,21 @@ public class Show {
 		this.duration = duration;
 	}
 
-
-
-	public Show(Integer showId, Date showDateTime, Integer duration) {
+	public Show(Integer showId, Date date,  Integer duration) {
 		super();
 		this.showId = showId;
-		this.showDateTime = showDateTime;
-		this.duration = duration;
-		
-	}
+		this.date = date;
 	
+		this.duration = duration;
+	}
+
 	public Show() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
-		return "Show [showId=" + showId + ", showDateTime=" + showDateTime + ", duration=" + duration  + "]";
+		return "Show [showId=" + showId + ", date=" + date + ", duration=" + duration + "]";
 	}
 
 }

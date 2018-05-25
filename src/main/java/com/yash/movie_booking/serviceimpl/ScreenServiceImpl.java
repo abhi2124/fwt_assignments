@@ -35,7 +35,7 @@ public class ScreenServiceImpl implements ScreenService {
 	}
 
 	private boolean checkIfScreenIsNull(Screen screen) {
-		boolean isScreenNull = false;
+		boolean isScreenNull = screenDAO.checkIfScreenObjectIsNull(screen);
 		if(screen==null){
 			isScreenNull = true;
 			try {

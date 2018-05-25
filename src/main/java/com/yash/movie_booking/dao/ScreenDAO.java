@@ -6,7 +6,7 @@ public interface ScreenDAO {
 
 	int insert(Screen screen);
 
-	int checkIfScreenObjectIsNull(Screen screen);
+	boolean checkIfScreenObjectIsNull(Screen screen);
 
 	boolean getByName(String screenName);
 
