@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 import com.yash.movie_booking.dao.MovieDAO;
 import com.yash.movie_booking.exception.AlreadyExistsException;
@@ -20,18 +22,23 @@ import com.yash.movie_booking.service.MovieService;
 
 public class MovieServiceImplTest {
 
+	private Movie movie;
+	List<String> listOfActors = new ArrayList<String>();
+	private Show show;
 	
-
+	@Before
+	public void executeBeforeEach(){
+		listOfActors.add("Salman Khan");
+		listOfActors.add("Kareena Kapoor");
+		show = new Show(1, new Date(), 3);
+		movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
+	}
+	
 	@Test
 	public void addMovie_MovieObjectGiven_ShouldReturnOne() {
 		
 		MovieDAO movieDAO = mock(MovieDAO.class);
 		MovieService movieService = new MovieServiceImpl(movieDAO);
-		Show show = new Show(1, new Date(), 3);
-		List<String> listOfActors = new ArrayList<String>();
-		listOfActors.add("Salman Khan");
-		listOfActors.add("Kareena Kapoor");
-		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		when(movieDAO.insert(movie)).thenReturn(1);
 		int rowsAffected = movieService.add(movie);
 		assertEquals(1, rowsAffected);
@@ -41,11 +48,6 @@ public class MovieServiceImplTest {
 	public void addMovie_MovieObjectGiven_ThrowExceptionIfMovieObjectIsNull() {
 		MovieDAO movieDAO = mock(MovieDAO.class);
 		MovieService movieService = new MovieServiceImpl(movieDAO);
-		Show show = new Show(1, new Date(), 3);
-		List<String> listOfActors = new ArrayList<String>();
-		listOfActors.add("Salman Khan");
-		listOfActors.add("Kareena Kapoor");
-		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		when(movieDAO.checkIfObjectIsNull(movie)).thenThrow(NullObjectProvidedException.class);
 		movieService.add(movie);
 	}
@@ -54,11 +56,6 @@ public class MovieServiceImplTest {
 	public void addMovie_MovieObjectGiven_ThrowExceptionIfMovieObjectAlreadyExists() {
 		MovieDAO movieDAO = mock(MovieDAO.class);
 		MovieService movieService = new MovieServiceImpl(movieDAO);
-		Show show = new Show(1, new Date(), 3);
-		List<String> listOfActors = new ArrayList<String>();
-		listOfActors.add("Salman Khan");
-		listOfActors.add("Kareena Kapoor");
-		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		when(movieDAO.getByName(movie.getMovieName())).thenThrow(AlreadyExistsException.class);
 		movieService.add(movie);
 	}
@@ -67,11 +64,6 @@ public class MovieServiceImplTest {
 	public void addMovie_MovieObjectGiven_ThrowExceptionIfShowObjectIsNull() {
 		MovieDAO movieDAO = mock(MovieDAO.class);
 		MovieService movieService = new MovieServiceImpl(movieDAO);
-		Show show = null;
-		List<String> listOfActors = new ArrayList<String>();
-		listOfActors.add("Salman Khan");
-		listOfActors.add("Kareena Kapoor");
-		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		when(movieDAO.checkIfObjectIsNull(movie)).thenThrow(NullObjectProvidedException.class);
 		movieService.add(movie);
 	}
@@ -80,11 +72,6 @@ public class MovieServiceImplTest {
 	public void addMovie_MovieObjectGiven_ThrowExceptionIfMovieNameIsNull() {
 		MovieDAO movieDAO = mock(MovieDAO.class);
 		MovieService movieService = new MovieServiceImpl(movieDAO);
-		Show show = new Show(1, new Date(), 3);
-		List<String> listOfActors = new ArrayList<String>();
-		listOfActors.add("Salman Khan");
-		listOfActors.add("Kareena Kapoor");
-		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		when(movieDAO.getByName(movie.getMovieName())).thenThrow(NoNameProvidedException.class);
 		movieService.add(movie);
 	}
@@ -93,9 +80,6 @@ public class MovieServiceImplTest {
 	public void addMovie_MovieObjectGiven_ThrowExceptionIfActorsListIsEmpty() {
 		MovieDAO movieDAO = mock(MovieDAO.class);
 		MovieService movieService = new MovieServiceImpl(movieDAO);
-		Show show = new Show(1, new Date(), 3);
-		List<String> listOfActors = new ArrayList<String>();
-		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		when(movieDAO.checkListSize(movie)).thenThrow(EmptyListException.class);
 		movieService.add(movie);
 	}
@@ -104,11 +88,6 @@ public class MovieServiceImplTest {
 	public void addMovie_MovieObjectGiven_ThrowExceptionIfMovieDuartionAndShowDurationIsDifferent() {
 		MovieDAO movieDAO = mock(MovieDAO.class);
 		MovieService movieService = new MovieServiceImpl(movieDAO);
-		Show show = new Show(1, new Date(), 3);
-		List<String> listOfActors = new ArrayList<String>();
-		listOfActors.add("Salman Khan");
-		listOfActors.add("Kareena Kapoor");
-		Movie movie = new Movie(1, "Race", show, 3, listOfActors, "Dharma Production");
 		when(movieDAO.checkDuration(movie)).thenThrow(DurationDifferentException.class);
 		movieService.add(movie);
 	}
