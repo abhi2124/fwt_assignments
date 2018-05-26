@@ -14,7 +14,7 @@ import com.yash.movie_booking.dao.MovieDAO;
 import com.yash.movie_booking.exception.AlreadyExistsException;
 import com.yash.movie_booking.exception.DurationDifferentException;
 import com.yash.movie_booking.exception.EmptyListException;
-import com.yash.movie_booking.exception.NoNameProvidedException;
+import com.yash.movie_booking.exception.EmptyFieldException;
 import com.yash.movie_booking.exception.NullObjectProvidedException;
 import com.yash.movie_booking.pojo.Movie;
 import com.yash.movie_booking.pojo.Show;
@@ -68,11 +68,11 @@ public class MovieServiceImplTest {
 		movieService.add(movie);
 	}
 
-	@Test(expected = NoNameProvidedException.class)
+	@Test(expected = EmptyFieldException.class)
 	public void addMovie_MovieObjectGiven_ThrowExceptionIfMovieNameIsNull() {
 		MovieDAO movieDAO = mock(MovieDAO.class);
 		MovieService movieService = new MovieServiceImpl(movieDAO);
-		when(movieDAO.getByName(movie.getMovieName())).thenThrow(NoNameProvidedException.class);
+		when(movieDAO.getByName(movie.getMovieName())).thenThrow(EmptyFieldException.class);
 		movieService.add(movie);
 	}
 
