@@ -9,11 +9,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.yash.movie_booking.exception.FileIsEmptyException;
+import com.yash.movie_booking.serviceimpl.ScreenServiceImpl;
 
 public class FileUtil {
 
 	public void writeToFile(String object, String nameOfFile) {
+
 		BufferedWriter writer = null;
 		File fileName = new File("src\\main\\resources\\" + nameOfFile + ".txt");
 		if (!fileName.exists()) {
@@ -57,9 +61,9 @@ public class FileUtil {
 			}
 			bufferedReader.close();
 		} catch (FileNotFoundException ex) {
-			System.out.println("Unable to open file '" + fileName + "'");
+			// System.out.println("Unable to open file '" + fileName + "'");
 		} catch (IOException ex) {
-			System.out.println("Error reading file '" + fileName + "'");
+			// System.out.println("Error reading file '" + fileName + "'");
 		}
 		return isFileEmpty;
 	}
@@ -77,9 +81,9 @@ public class FileUtil {
 			}
 			bufferedReader.close();
 		} catch (FileNotFoundException ex) {
-			System.out.println("Unable to open file '" + fileName + "'");
+			// System.out.println("Unable to open file '" + fileName + "'");
 		} catch (IOException ex) {
-			System.out.println("Error reading file '" + fileName + "'");
+			// System.out.println("Error reading file '" + fileName + "'");
 		}
 	}
 
@@ -93,7 +97,8 @@ public class FileUtil {
 				final String lineFromFile = scanner.nextLine();
 				if (lineFromFile.contains(wordToSearch)) {
 					isWordFound = true;
-					System.out.println("I found " + wordToSearch + " in file " + file.getName());
+					// System.out.println("I found " + wordToSearch + " in file
+					// " + file.getName());
 					break;
 				}
 			}
