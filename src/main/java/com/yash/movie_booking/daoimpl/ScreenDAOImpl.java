@@ -1,9 +1,6 @@
 package com.yash.movie_booking.daoimpl;
 
 import com.yash.movie_booking.dao.ScreenDAO;
-import com.yash.movie_booking.exception.AlreadyExistsException;
-import com.yash.movie_booking.exception.NullObjectProvidedException;
-import com.yash.movie_booking.exception.SizeExceededExeption;
 import com.yash.movie_booking.pojo.Screen;
 import com.yash.movie_booking.util.FileUtil;
 import com.yash.movie_booking.util.JsonUtil;
@@ -16,9 +13,9 @@ public class ScreenDAOImpl extends JsonUtil implements ScreenDAO {
 	}
 
 	public int insert(Screen screen) {
-	
+
 		String dataToBeWrittenInFile = convertToJson(screen);
-		fileUtil.writeToFile(dataToBeWrittenInFile,"screen");
+		fileUtil.writeToFile(dataToBeWrittenInFile, "screen");
 		return 1;
 	}
 
@@ -28,13 +25,13 @@ public class ScreenDAOImpl extends JsonUtil implements ScreenDAO {
 	}
 
 	public boolean getByName(String screenName) {
-		boolean isScreenAlreadyPresent = fileUtil.getStringInFile(screenName,"screen");
+		boolean isScreenAlreadyPresent = fileUtil.getStringInFile(screenName, "screen");
 		return isScreenAlreadyPresent;
 	}
 
 	public boolean getId(Integer screenId) {
 		String idToSearch = screenId.toString();
-		boolean isScreenSizeExceeded = fileUtil.getStringInFile(idToSearch,"screen");
+		boolean isScreenSizeExceeded = fileUtil.getStringInFile(idToSearch, "screen");
 		return isScreenSizeExceeded;
 	}
 
